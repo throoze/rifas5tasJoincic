@@ -17,3 +17,6 @@
 # Ignore all netbeans project files.
 /nbproject/private/
 /nbproject/
+
+# Ignore local database configuration
+/config/database.yml
