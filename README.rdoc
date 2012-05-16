@@ -1,3 +1,7 @@
+== Sistema de Rifas - 5tas JOINCIC
+
+== Documentación de Rails:
+
 == Welcome to Rails
 
 Rails is a web-application framework that includes everything needed to create
