@@ -1,14 +1,22 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Rifas5tasJoincic</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-
-<%= yield %>
-
-</body>
+  <head>
+    <title>Sistema de Rifas - 5tas JOINCIC</title>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="header">
+        <div id="banner"></div>
+      </div>
+      <div id="body">
+        <%= yield %>
+      </div>
+      <div id="footer">
+        5tas JOINCIC ©2012 - Todos los derechos reservados.
+      </div>
+    </div>
+  </body>
 </html>
