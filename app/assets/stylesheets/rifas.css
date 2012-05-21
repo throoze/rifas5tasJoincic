@@ -1,0 +1,22 @@
+/*
+    Document   : rifas
+    Created on : May 20, 2012, 6:27:21 PM
+    Author     : victor
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+* {
+}
+
+#winner {
+   width: 500px;
+   height: 60px;
+   font-size: 2em;
+}
+
+#banner {
+    width: 865px;
+    height: 171px;
+    background-image: url(banner.png);
+}
