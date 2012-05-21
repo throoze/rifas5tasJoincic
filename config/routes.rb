@@ -3,6 +3,8 @@ Rifas5tasJoincic::Application.routes.draw do
 
   post "home/getParticipants"
 
+  post "home/setWinner"
+
   get "raffles/new"
 
   get "users/new"
