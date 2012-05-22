@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   def index
-    @raffles = Raffle.order('name ASC')
+    @raffles = Raffle.order('name ASC').select {|e| e.users.size < e.amount}
 
     respond_to do |format|
       format.html  # index.html.erb
@@ -34,19 +34,23 @@ class HomeController < ApplicationController
     @winner = User.find(params[:winner][:id])
     @raffle = Raffle.find(params[:raffle][:id])
     @error = nil
+    @raffleDone = false;
     if @raffle.users.include? @winner
       @error = "El usuario ya gano en esta rifa."
     else
-      if (not @raffle.limit.nil?) and @raffle.users.size < @raffle.limit
-        @error = "Todos los sorteos de esta rifa fueron realizados."
-      else
+      if @raffle.users.size < @raffle.amount
         @raffle.users = @raffle.users + [@winner]
         @raffle.save
+        if @raffle.users.size == @raffle.amount
+          @raffleDone = true;
+        end
+      else
+        @error = "Todos los sorteos de esta rifa fueron realizados."
       end
     end
 
     respond_to do |format|
-      format.json  { render :json => [:winner => @winner, :error => @error, :raffle => @raffle] }
+      format.json  { render :json => [:winner => @winner, :error => @error, :raffle => @raffle, :raffleDone => @raffleDone] }
     end
   end
 end

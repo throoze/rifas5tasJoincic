@@ -21,11 +21,6 @@ ActiveRecord::Schema.define(:version => 20120519171337) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "raffles_users", :id => false, :force => true do |t|
-    t.integer "raffle_id"
-    t.integer "user_id"
-  end
-
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "ci"

@@ -25,6 +25,7 @@ function setRaffleTypeListener() {
                 success: function(data, textStatus, jqXHR) {
                     participants = data[0];
                     raffle = data[1];
+                    iniciado = true;
                     $('#roulette_button').removeAttr('disabled');
                 }
             })
@@ -33,16 +34,20 @@ function setRaffleTypeListener() {
 }
 
 function setRouletteListener(){
-    $('#roulette').on('submit', function(event){
+    $('#roulette_button').on('click', function(event){
         event.preventDefault();
-        if (!running) {
-            running = true;
-            $('#roulette_button').val('Parar!');
-            initRoulette(participants);
+        if (iniciado) {
+            if (!running) {
+                running = true;
+                $('#roulette_button').val('Parar!');
+                initRoulette(participants);
+            } else {
+                running = false;
+                $('#roulette_button').attr("disabled", "disabled");
+                $('#roulette_button').val('Iniciar!');
+            }
         } else {
-            running = false;
-            $('#roulette_button').attr("disabled", "disabled");
-            $('#roulette_button').val('Iniciar!');
+
         }
     });
 }
@@ -83,22 +88,25 @@ function initRoulette(people){
                                 smoke.alert('Ocurrió un error!:\n' + textStatus);
                             },
                             success: function(data, textStatus, jqXHR) {
-                                testdata = data;
-                                if (data.error) {
-                                    smoke.alert('Ha ocurrido un error:\n'+data.error);
+                                testdata = data[0];
+                                if (testdata.error) {
+                                    smoke.alert('Ha ocurrido un error:\n'+testdata.error);
                                 } else {
                                     smoke.alert('Ganador registrado con éxito!:\nNombre: '+data[0].winner.name+'\nCédula: ' + data[0].winner.ci);
+                                    if (testdata.raffleDone) {
+                                        $('option[value="'+testdata.raffle.id+'"]').remove();
+                                    }
                                 }
                             },
                             complete: function() {
                                 iniciado = false;
-                                running = true;
+                                running = false;
                                 slowDown = false;
                                 initDelay = 100;
                                 delay = initDelay;
                                 index = 0;
-                                participants;
-                                raffle;
+                                participants = null;
+                                raffle = null;
                                 $('#winner').val('');
                                 $('#rifa').val('');
                                 $('#roulette_button').removeAttr('disabled');
